@@ -22,9 +22,10 @@
     <br>
     <h4><b>Change Profile</b></h4>
     <br>
-    
-    {{errors.user_errors}}
-    {{errors.profile_errors}}
+
+    {% include 'shamsla/layout/flash_messages.html' %}
+    {% include 'shamsla/layout/errors_boil.html' with errors=errors.user_errors  %}
+    {% include 'shamsla/layout/errors_boil.html' with errors=errors.profile_errors  %}
 
     <form method="POST" enctype="multipart/form-data">
 

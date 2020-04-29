@@ -21,11 +21,7 @@
         <form class="w-75" method="POST">
             {% csrf_token %}
 
-            {% if messages %}
-
-            {% include 'shamsla/layout/errors_boil.html' with errors=messages tags=True %}
-
-            {% endif %}
+            {% include 'shamsla/layout/flash_messages.html' %}
       
 
         <h2>Login</h2>
