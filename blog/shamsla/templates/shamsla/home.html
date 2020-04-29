@@ -1,0 +1,78 @@
+{% extends 'shamsla/layout/index.html' %}
+{% load static %}
+
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'shamsla/css/media.e9e2f1dc.css' %}">
+    <link rel="stylesheet" href="{% static 'shamsla/css/home.0442dd0a.css' %}">
+
+{% endblock %}
+
+{% block title %} ShAms LA {% endblock %}
+
+{% block content %}
+
+
+<br>
+<div class="d-flex justify-content-between align-items-start">
+  <div class="home-wrapper">
+    {% for post in posts %}
+
+
+      <div class="media border p-3 rounded my-media">
+        <a href="{% url 'profile' post.author.username %}"><img width="60" height="60" src="{{post.author.profile.image.url}}" class="rounded-circle align-self-start mr-3" alt="..."></a>
+        <div class="media-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <p class="my-uname"><a href="{% url 'profile' post.author.username %}">@{{post.author}} </a><span class="my-post-date">{{post.date_posted|date:"F j, Y" }}</span></p>
+          
+            {% if post.author == user %}
+            <a class="edit-icon" href="{% url 'post-update' post.id%}" data-toggle="tooltip" data-placement="top" title="Edit Post"><i class="fas fa-pencil-alt text-dark"></i></a>
+          {% endif %}
+          </div>
+
+            <hr>
+
+            {% if post.title|length > 55 %}
+              <h4 class="mt-0"><a class="text-dark" href="{% url 'post-detail' post.id %}">{{post.title|slice:":55"}} ...</a></h4>
+          {% else %}
+            <h4 class="mt-0"><a class="text-dark" href="{% url 'post-detail' post.id %}">{{post.title}}</a></h4>
+          {% endif %}
+          
+          {% if post.content|length > 250 %}
+            <p>{{post.content|slice:":250"}} ...</p>
+          {% else %}
+            <p>{{post.content}}</p>
+          {% endif %}
+          
+        </div>
+      </div>
+      <br>
+
+      {% endfor %}
+
+
+      {% include 'shamsla/layout/pagination_boil.html' %}
+
+
+    </div>
+    <div class="sidebar p-4 border rounded">
+      <form action="#" class="form-group">
+        <h4>Search</h4>
+        <input placeholder="Type here ..." type="text" class="form-control">
+        <button type="submit" class="btn btn-sm btn-primary mt-3">Submit</button>
+      </form>
+      <hr>
+      <h6 class="mb-2">Trending</h6>
+      <a href="/" class="btn btn-light btn-sm m-1">Java</a>
+      <a href="/" class="btn btn-light btn-sm m-1">Python</a>
+      <a href="/" class="btn btn-light btn-sm m-1">OOP</a>
+      <a href="/" class="btn btn-light btn-sm m-1">System Design</a>
+      <a href="/" class="btn btn-light btn-sm m-1">UI/UX</a>
+      <a href="/" class="btn btn-light btn-sm m-1">API</a>
+      <a href="/" class="btn btn-light btn-sm m-1">Linux</a>
+      <a href="/" class="btn btn-light btn-sm m-1">Macbook</a>
+    </div>
+    </div>
+
+{% endblock %}

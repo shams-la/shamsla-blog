@@ -1,0 +1,10 @@
+{% load formsfilter %}
+
+<div class="form-group">
+    <label for="id_title">Title</label>
+    {{form.title|add_attr:"class,form-control;;placeholder,Type here ..."}}
+</div>
+<div class="form-group">
+    <label for="id_content">Desciption</label>
+    {{form.content|add_attr:"class,form-control;;placeholder,Type here ..."}}
+</div>

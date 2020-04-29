@@ -1,0 +1,151 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
+
+{% endblock %}
+
+{% block title %} {{pro_user|title}} Profile {% endblock %}
+
+{% block content %}
+
+
+        <div style="position:relative;" class="wrapper border d-flex align-items-center justify-content-between">
+        <div class="inner d-flex align-items-center">
+        <img class="rounded-circle mr-4" width="140" height="140" src="{{ pro_user.profile.image.url }}" alt="profile-image">
+        <div class="info">
+        <h6 ><b class="text-muted">Username . </b><span class="text-primary">@{{pro_user.username}}</span></h6>
+        <h6  class="text-muted"><b>Email . </b><span>{{pro_user.email}}</span></h6>
+        <h6  class="text-muted"><b>Joined . </b><span>{{pro_user.profile.join_date|date:"F j, Y"}}</span></h6>
+
+        </div>
+        </div>
+
+        <div class="stats border rounded">
+                <h4 class="font-weight-bold mb-3 text-muted">Stats.</h4>
+                <p class="text-muted m-0"><i class="fas fa-thumbs-up"></i> 2,000</p>
+                <hr>
+                <p class="text-muted m-0"><i class="fas fa-user-friends"></i> 1,280</p>
+                <hr>
+                <p class="text-muted m-0"><i class="fas fa-comment-dots"></i> 6,115</p>
+                <hr>
+                <p class="text-muted m-0"><i class="fas fa-database"></i> 600</p>
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-light d-block mt-3 btn-sm">See Posts</a>
+        </div>
+
+        {% if user == pro_user %}
+                <a style="position: absolute; bottom: 20px;left: 30px;font-size: 16px;" class="text-muted" href="{% url 'profile-change' %}"><i class="fas fa-cog"></i> Settings</a>
+        {% endif %}
+
+        </div>
+
+        <div style="background: #ffffff;" class="border rounded p-4 text-center">
+                <h4><b>Popular Posts</b></h4>
+        </div>
+        <br>
+
+        {% for post in posts %}
+
+
+      <div class="media border p-3 rounded my-media">
+        <a href="{% url 'profile' post.author.username %}"><img width="60" height="60" src="{{post.author.profile.image.url}}" class="rounded-circle align-self-start mr-3" alt="..."></a>
+        <div class="media-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <p class="my-uname"><a href="{% url 'profile' post.author.username %}">@{{post.author}} </a><span class="my-post-date">{{post.date_posted|date:"F j, Y" }}</span></p>
+
+                {% if user == pro_user %}
+                  <a class="edit-icon" href="{% url 'post-update' post.id%}"><i class="fas fa-pencil-alt text-dark"></i></a>
+
+                  {% endif %}
+
+            </div>
+
+            <hr>
+            {% if post.title|length > 55 %}
+              <h4 class="mt-0"><a class="text-dark" href="{% url 'post-detail' post.id %}">{{post.title|slice:":55"}} ...</a></h4>
+          {% else %}
+            <h4 class="mt-0"><a class="text-dark" href="{% url 'post-detail' post.id %}">{{post.title}}</a></h4>
+          {% endif %}
+          
+          {% if post.content|length > 250 %}
+            <p>{{post.content|slice:":250"}} ...</p>
+          {% else %}
+            <p>{{post.content}}</p>
+          {% endif %}
+
+
+          {% if user == pro_user %}
+          <div style="width: 100%;text-align: end;" >
+                <a class="del-icon" href="{% url 'post-delete' post.id%}"><i class="fas fa-trash-alt text-dark"></i></a>
+              </div>
+          {% endif %}
+
+
+        </div>
+      </div>
+      <br>
+      
+      {% endfor %}
+
+      <div style="background: #ffffff;" class="border rounded p-3 text-center">
+              <h4><a class="btn btn-link btn-lg" href="{% url 'user-posts' pro_user.username %}">See All</a></h4>
+      </div>
+      <br>
+      <br>
+
+
+        <style>
+        .wrapper {
+                background: #ffffff;
+                padding: 50px;
+                border-radius: 8px;
+                margin-top: 100px;
+                margin-bottom: 30px;
+
+        }
+
+        .inner h6 {
+                font-size: 1.1rem;
+        }
+
+        .stats {
+                padding: 20px 30px ;
+        }
+        .stats p {
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+        }
+        .stats i {
+                font-size: 18px;
+                margin-right: 150px;
+        }
+
+        h4 {
+                margin: 0;
+        }
+
+        hr {
+                margin: 9px 0px;
+        }
+        </style>
+
+
+        <!-- {{user_errors}}
+        {{profile_errors}} -->
+
+        <!-- <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {{userUpdateForm.as_p}}
+                {{profileUpdateForm.as_p}}
+    
+                <button type="submit">Update</button>
+    
+            </form> -->
+
+{% endblock %}

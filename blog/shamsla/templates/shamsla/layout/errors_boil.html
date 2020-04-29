@@ -1,0 +1,7 @@
+{% for error in errors %}
+
+    <div class="alert alert-{% if tags == True %}{{ error.tags }}{% else %}danger{% endif %}" role="alert">
+        <p class="m-0">{{ error }}</p>
+    </div>
+
+{% endfor %}

@@ -1,0 +1,17 @@
+{% load formsfilter %}
+
+
+    
+    {% if type == "file" %}
+        <label>Image</label>
+        <div class="custom-file">
+            <input type="file" name="image" accept="image/*" class="custom-file-input" id="id_image">
+            <label class="custom-file-label" for="id_image">Choose file...</label>
+        </div>
+        
+    {% else %}
+    <div class="form-group">
+        <label for="{{ for_id }}">{{label}}</label>
+        {{input|add_class:"form-control"}}
+    </div>
+    {% endif %}

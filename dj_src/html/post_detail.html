@@ -1,0 +1,69 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+{% load formsfilter %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
+
+{% endblock %}
+{% block title %} {{post.title}} | {{ post.author }}{%endblock %} 
+
+{% block content %}
+
+<style>
+  hr {
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.my-media {
+    margin-top: 30px;
+}
+
+.my-media .my-content {
+    margin-top: 15px;
+    font-size: 17px;
+}
+
+</style>
+
+<br>
+
+<div class="media border p-4 rounded my-media">
+  <a href="/"
+    ><img
+      width="100"
+      height="100"
+      src="{{post.author.profile.image.url}}"
+      class="rounded-circle align-self-start mr-4"
+      alt="author"
+  /></a>
+  <div class="media-body">
+    <div class="d-flex align-items-center justify-content-between">
+        <p class="my-uname">
+          <a href="/">{{post.author}} </a
+          ><span class="my-post-date">{{post.date_posted|date:"F j, Y" }}</span>
+        </p>
+
+    {% if post.author == user %}
+      <a class="edit-icon"
+        href="{% url 'post-update' post.id%}"
+        ><i class="fas fa-pencil-alt text-dark"></i></a>
+    {% endif %}
+    </div>
+
+      
+    </p>
+    <hr />
+    <h2 class="mt-0">{{post.title}}</h2>
+    {% for p in post.content|split_by_n %}
+      <p class="my-content">{{p}}</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

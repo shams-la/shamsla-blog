@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "cd blog && python manage.py runserver",
+    "mkg": "cd blog && python manage.py makemigrations",
+    "mg": "cd blog && python manage.py migrate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "child_process": "^1.0.2",
+    "gulp": "^4.0.2",
+    "gulp-change": "^1.0.2",
+    "gulp-hash": "^4.2.2",
+    "gulp-tap": "^2.0.0"
+  }
+}
