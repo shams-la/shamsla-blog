@@ -13,7 +13,8 @@
 {% block content %}
 
 
-        <div style="position:relative;" class="wrapper border d-flex align-items-center justify-content-between">
+        <div style="position:relative;" class="wrapper border">
+        <div class="d-flex align-items-center justify-content-between">
         <div class="inner d-flex align-items-center">
         <img class="rounded-circle mr-4" width="140" height="140" src="{{ pro_user.profile.image.url }}" alt="profile-image">
         <div class="info">
@@ -26,19 +27,52 @@
 
         <div class="stats border rounded">
                 <h4 class="font-weight-bold mb-3 text-muted">Stats.</h4>
-                <p class="text-muted m-0"><i class="fas fa-thumbs-up"></i> 2,000</p>
-                <hr>
-                <p class="text-muted m-0"><i class="fas fa-user-friends"></i> 1,280</p>
-                <hr>
-                <p class="text-muted m-0"><i class="fas fa-comment-dots"></i> 6,115</p>
-                <hr>
-                <p class="text-muted m-0"><i class="fas fa-database"></i> 600</p>
+                
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-light d-block mt-3 btn-sm">Followings</a>
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-light d-block mt-3 btn-sm">Followers</a>
                 <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-light d-block mt-3 btn-sm">See Posts</a>
         </div>
 
+
+        </div>
+
+        <div class="bt-stat d-flex align-items-center justify-content-between">
+        <div class="info-stat d-flex align-items-center justify-content-between">
+
+                <p class="text-center m-0 text-dark bt-stat-text">Posts<br><span class="text-muted stat-val">{{total_posts}}</span></p>
+                <p class="text-center m-0 text-dark bt-stat-text">Following<br><span class="text-muted stat-val">{{followings}}</span></p>
+                <p class="text-center m-0 text-dark bt-stat-text">Followers<br><span class="text-muted stat-val">{{followers}}</span></p>
+                <p class="text-center m-0 text-dark bt-stat-text">Likes<br><span class="text-muted stat-val">100.8K</span></p>
+                <p class="text-center m-0 text-dark bt-stat-text">Comments<br><span class="text-muted stat-val">54K</span></p>
+
+        </div>        
         {% if user == pro_user %}
-                <a style="position: absolute; bottom: 20px;left: 30px;font-size: 16px;" class="text-muted" href="{% url 'profile-change' %}"><i class="fas fa-cog"></i> Settings</a>
+        <div>
+                <a style="font-size: 16px;" class="btn btn-primary" href="{% url 'profile-change' %}"><i class="fas fa-cog"></i> Edit Profile</a>
+        </div>
         {% endif %}
+
+        {% if user != pro_user %}
+        <div>
+        {% if follow_or_not %}
+                <form action="/users/unfollow/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="uid" value="{{pro_user.id}}">
+                <button style="font-size: 16px;" type="submit" class="btn btn-dark"><b>Unfollow</b></button>
+                </form>
+                
+        {% else %}
+                <form action="/users/follow/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="uid" value="{{pro_user.id}}">
+                <button style="font-size: 16px;" type="submit" class="btn btn-primary"><b>+ Follow</b></button>
+                </form>
+        {% endif %}
+
+        </div>
+        {% endif %}
+
+        </div>
 
         </div>
 
@@ -101,6 +135,7 @@
         .wrapper {
                 background: #ffffff;
                 padding: 50px;
+                padding-bottom: 20px;
                 border-radius: 8px;
                 margin-top: 100px;
                 margin-bottom: 30px;
@@ -113,16 +148,24 @@
 
         .stats {
                 padding: 20px 30px ;
+                width: 240px;
         }
-        .stats p {
-                font-size: 13px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+        
+
+        .bt-stat {
+                margin-top: 100px;
         }
-        .stats i {
-                font-size: 18px;
-                margin-right: 150px;
+
+        .info-stat {
+                width: 600px;
+        }
+
+        .bt-stat-text {
+                font-weight: bold;
+        }
+
+        .stat-val {
+                font-weight: 500;
         }
 
         h4 {

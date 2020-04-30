@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotFound
 from django.contrib import messages
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
@@ -26,43 +28,32 @@ def register(request):
         form = UserRegistrationForm()
         return render(request, 'users/register.html', {'form': form})
 
+
+
 def profile(request, user_name):
 
-    # if request.method == 'POST':
-    #     u_form = UpdateUserForm(request.POST,   instance=request.user)
-    #     p_form = UpdateProfileForm( request.POST,
-    #                                 request.FILES,
-    #                                 instance=request.user.profile)
+    user = get_object_or_404(User, username=user_name)
 
-    #     if u_form.is_valid() and p_form.is_valid():
-    #         u_form.save()
-    #         p_form.save()
+    posts = user.post_author.all()
+    posts = posts[:10] if len(posts) > 10 else posts
 
-    #         messages.success(request, 'Profile Successfully Updated!')
+    followings = user.profile.followings.all().count()
+    followers = user.profile.followers.all().count()
 
-    #         return redirect('profile')
-
-    # else:
-    #     u_form = UpdateUserForm(instance=request.user)
-    #     p_form = UpdateProfileForm(instance=request.user.profile)
-
-    # params = {
-    #     'userUpdateForm': u_form,
-    #     'profileUpdateForm': p_form,
-    #     'user_errors': u_form.errors,
-    #     'profile_errors': p_form.errors
-    # }
-    user = get_list_or_404(User, username=user_name)
-    user = user[0]
-
-    top_posts = [user.post_set.all()[i] for i in range(10)]
+    total_posts = posts.count()
 
     params = {
         'pro_user': user,
-        'posts': top_posts
+        'posts': posts,
+        'total_posts': total_posts,
+        'followings': followings,
+        'followers': followers,
+        'follow_or_not': request.user.profile.followings.filter(user=user).exists()
     }
 
     return render(request, 'users/profile.html', params)
+
+
 
 @login_required
 def userProfileChange(request):
@@ -97,3 +88,52 @@ def userProfileChange(request):
     params['profile_form'] = profile_form
 
     return render(request, 'users/user_change.html', params)
+
+@login_required
+def followUser(request):
+    if request.method == "POST":
+        
+        try:
+            follow_id = request.POST.get('uid')
+        except:
+            return HttpResponseNotFound("Not Found")
+
+        to_follow_user = get_object_or_404(User, id=follow_id)
+
+        user = request.user.profile
+
+        if to_follow_user != request.user and not user.followings.filter(user=to_follow_user).exists():
+
+            user.followings.create(user=to_follow_user)
+            to_follow_user.profile.followers.create(user=request.user)
+
+            return redirect(reverse('profile', kwargs={"user_name": to_follow_user.username}))
+        
+    return HttpResponseNotFound("Not Found")
+
+        
+        
+@login_required
+def unfollowUser(request):
+    if request.method == "POST":
+
+        try:
+            follow_id = request.POST.get('uid')
+        except:
+            return HttpResponseNotFound("Not Found")
+
+        to_follow_user = get_object_or_404(User, id=follow_id)
+
+        user = request.user.profile
+        follow_user = user.followings.filter(user=to_follow_user)
+
+        if to_follow_user != request.user and follow_user.exists():
+
+            follow_user.delete()
+            to_follow_user.profile.followers.filter(user=request.user).delete()
+
+            return redirect(reverse('profile', kwargs={"user_name": to_follow_user.username}))
+        
+    return HttpResponseNotFound("Not Found")
+
+        

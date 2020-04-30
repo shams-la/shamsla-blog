@@ -1,1 +1,9 @@
 node_modules
+__pycache__/
+blog/media/profile_pics
+db.sqlite3
+blog/shamsla/migrations/*
+!blog/shamsla/migrations/__init__.py
+blog/users/migrations/*
+!blog/users/migrations/__init__.py
+
