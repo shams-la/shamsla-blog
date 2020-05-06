@@ -1,0 +1,39 @@
+{% extends 'shamsla/layout/index.html' %}
+{% load static %}
+
+{% load formsfilter %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'shamsla/css/media.db65f61a.css' %}">
+
+<link rel="stylesheet" href="{% static 'shamsla/css/home.4f0cd698.css' %}">
+
+<link rel="stylesheet" href="{% static 'shamsla/css/search_sidebar.b6d34238.css' %}">
+
+{% endblock %}
+
+{% block title %} Posts | {{posts.0.author.username|title}} {% endblock %}
+
+{% block content %}
+
+<style>
+  .posts-linfo h2 {
+    font-size: 1.8rem;
+  }
+
+  .posts-linfo p {
+    font-size: 0.85rem;
+  }
+</style>
+
+<div class="d-flex justify-content-between align-items-start">
+
+  {% include 'shamsla/userPosts/posts.html' %}
+  {% include 'shamsla/layout/pagination_boil.html' %}
+  {% include 'shamsla/userPosts/sidebar.html' %}
+</div>
+
+
+
+{% endblock %}

@@ -10,6 +10,6 @@ urlpatterns = [
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name="post-update"),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name="post-delete"),
     path('posts/<author>/', views.UserPostsListView.as_view(), name="user-posts"),
-    path('post/new/', views.PostCreateView.as_view(), name="post-create")
-    # path('post/new/', views.createPost, name="post-create")
+    path('post/new/', views.PostCreateView.as_view(), name="post-create"),
+    path('post/like/', views.likePost, name="post_like")
 ]

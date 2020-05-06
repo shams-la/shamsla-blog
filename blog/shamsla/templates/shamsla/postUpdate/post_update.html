@@ -1,0 +1,30 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'shamsla/css/form_outline.f90fdfdd.css' %}">
+{% endblock %}
+
+{% block title %} Update | {{ post.title }} {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="login-wrapper d-flex justify-content-center border">
+        <form method="POST">
+            {% csrf_token %}
+            <p style="font-size: 14px;" class="m-0 mb-2 ml-1"><span class="text-primary mr-2">@{{ post.author}}</span>
+                <span class="text-muted">{{ post.date_posted|date:"F j, Y"}}</span></p>
+            <hr>
+            <h5 class="m-0"><span class="badge badge-primary">Update</span> {{ post.title }}</h5>
+            <br>
+
+            {% include 'shamsla/layout/post_form_boil.html'%}
+
+            <button type="submit" class="btn btn-primary mr-2">Update</button>
+            <a href="{{ post.get_absolute_url}}" class="btn btn-light">Cancel</a>
+            <a href="{% url 'post-delete' post.id %}" class="d-block w-100 btn btn-danger mt-4">Delete</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load formsfilter %}
+
+{% if user.is_authenticated and user != post.author %}
+<span>
+    <i class="text-muted fas fa-circle sm-dot"></i>
+</span>
+{% if user|check_following:post.author %}
+<span>
+    <form action="/users/unfollow/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uid" value="{{post.author.id}}">
+        <button type="submit" class="btn btn-link btn-sm p-0">Unfollow</button>
+    </form>
+</span>
+
+{% else %}
+<span>
+    <form action="/users/follow/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uid" value="{{post.author.id}}">
+        <button type="submit" class="btn btn-link btn-sm p-0">Follow</button>
+    </form>
+</span>
+{% endif %}
+{% endif %}

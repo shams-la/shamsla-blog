@@ -1,0 +1,27 @@
+.pro-wrapper {
+    width: 75%;
+    background: #ffffff;
+    border-radius: 7px;
+}
+
+@media (max-width: 991px) {
+    .pro-wrapper {
+        width: 100%;
+        padding: 30px !important;
+    }
+    label {
+        font-size: 0.85rem;
+    }
+
+    .pro-wrapper input, .btn {
+        font-size: 0.8rem;
+    }
+
+    .pro-wrapper img {
+        width: 8.5rem;
+    }
+
+    .pro-wrapper .info h6 {
+        font-size: 0.9rem;
+    }
+}

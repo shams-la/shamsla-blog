@@ -1,0 +1,71 @@
+{% load formsfilter %}
+
+<div class="home-wrapper mt-4 ">
+
+    <div class="posts-linfo p-4 border rounded d-flex align-items-center"
+        style="background-color: #ffffff;position: relative;">
+        <a href="{% url 'profile' posts.0.author.username %}">
+            <img width="70" height="70" src="{{ posts.0.author.profile.image.url }}"
+                class="rounded-circle align-self-start mr-4" alt="author">
+        </a>
+        <h2 class="font-weight-bold m-0">{{ posts.0.author|title}}</h2>
+
+        <p class="m-0 text-muted" style="position: absolute;bottom: 10px; right: 20px;">Posts: {{posts|length}}</p>
+
+    </div>
+    <br>
+
+    {% for post in posts %}
+
+    <div class="media border p-3 mb-4 rounded my-media">
+
+        <a class="d-none d-lg-block" href="{% url 'profile' post.author.username %}">
+            <img width="60" height="60" src="{{post.author.profile.image.url}}"
+                class="rounded-circle align-self-start mr-3" alt="...">
+        </a>
+
+        <div class="media-body">
+            <div class="d-flex align-items-center">
+                <a class="d-sm-block d-lg-none" href="{% url 'profile' post.author.username %}">
+                    <img width="35" height="35" src="{{post.author.profile.image.url}}"
+                        class="rounded-circle align-self-start mr-3" alt="...">
+                </a>
+
+                <p class="my-uname">
+                    <a href="{% url 'profile' post.author.username %}">@{{post.author}}
+                    </a>
+                    <span class="text-muted">{{post.date_posted|date:"F j, Y" }}</span>
+                </p>
+
+                {% if post.author == user %}
+                <a class="edit-con ml-auto" href="{% url 'post-update' post.id%}">
+                    <i class="fas fa-pencil-alt text-dark"></i>
+                </a>
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <h4 class="mt-0">
+                <a class="post-title text-dark" href="{% url 'post-detail' post.id %}">
+                    {{post.title|splitText:75}}
+                </a>
+            </h4>
+
+            <p class="post-cont">{{post.content|splitText:250}}</p>
+
+            {% if user == post.author %}
+            <div style="width: 100%;text-align: end;">
+                <a class="del-icon mr-2" href="{% url 'post-delete' post.id%}">
+                    <i class="fas fa-trash-alt text-dark"></i>
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>

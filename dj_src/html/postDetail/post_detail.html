@@ -1,0 +1,90 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+{% load formsfilter %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'shamsla/css/post_detail.css' %}">
+
+{% endblock styles %}
+{% block title %} {{post.title}} | {{ post.author }}{%endblock title %}
+
+{% block content %}
+
+<br>
+
+<div class="media border p-4 rounded my-media">
+  <div class="mr-4 d-flex align-items-center justify-content-center flex-column">
+    <a class="d-none d-md-block" href="/">
+      <img width="110" height="110" src="{{post.author.profile.image.url}}" class="rounded-circle align-self-start"
+        alt="author" />
+    </a>
+
+    <div class="action-btns mt-5 d-flex align-items-center justify-content-center flex-md-column">
+      <button class="like text-muted mb-md-2 mr-4 mr-md-0"><i
+          class="{% if post|check_post_like:user.pk %}fas text-primary{% else %}far{% endif %} fa-heart"></i></button>
+      <button class="book text-muted"><i class="far fa-star"></i></button>
+    </div>
+
+  </div>
+  <div class="media-body">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="d-sm-block d-md-none" href="{% url 'profile' post.author.username %}">
+
+        <img width="40" height="40" src="{{post.author.profile.image.url}}" class="rounded-circle align-self-start mr-3"
+          alt="...">
+      </a>
+      <p class="my-uname m-0">
+        <a href="{%url 'profile' post.author.username %}">@{{post.author}} </a>
+        <span class="ml-2 my-post-date text-muted">{{post.date_posted|date:"F j, Y" }}</span>
+        {% if user != post.author and user.is_authenticated %}
+        <span>
+          <span>
+            <i class="text-muted fas fa-circle sm-dot"></i>
+          </span>
+          {% if user|check_following:post.author %}
+          <button class="following btn btn-link btn-sm p-0" data-uid="{{post.author.id}}"
+            data-type="unfollow">Unfollow</button>
+          {% else %}
+          <button class="following btn btn-link btn-sm p-0" data-uid="{{post.author.id}}"
+            data-type="follow">Follow</button>
+          {% endif %}
+
+        </span>
+        {% endif %}
+      </p>
+
+      {% if post.author == user %}
+      <a class="ml-auto edit-con" href="{% url 'post-update' post.id%}"><i class="fas fa-pencil-alt text-dark"></i></a>
+      {% endif %}
+    </div>
+
+    <hr />
+    </p>
+    <h2 class="text-dark post-title mt-0 mb-3 mb-md-4">{{post.title}}</h2>
+    {% for p in post.content|split_by_n %}
+    <p class="post-cont my-content">{{p}}</p>
+    {% endfor %}
+  </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock content %}
+
+{% block add_script %}
+
+<script src="{% static 'shamsla/js/follow.js' %}"></script>
+<script>
+  // -- {%include 'shamsla/postDetail/action_side.js' %}
+  // -- {%include 'shamsla/postDetail/pst_detail.js' %}
+</script>
+
+
+
+
+{% endblock add_script %}

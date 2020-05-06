@@ -1,0 +1,35 @@
+.del-wrapper {
+    width: 75%;
+    background: #ffffff;
+}
+
+h5 { 
+    font-weight: 600;
+}
+
+h4 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 991px) {
+    .del-wrapper {
+        width: 100%;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+    }
+
+     h4 {
+        font-size: 1.2rem;
+    }  
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+}

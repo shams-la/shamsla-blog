@@ -1,0 +1,68 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'users/css/change_pro.06508ae5.css' %}">
+
+{% endblock styles %}
+
+{% block title %} {{user.username|title}} | Profile Settings {% endblock %}
+
+{% block content %}
+
+<br>
+<div class=" d-flex justify-content-center">
+  <div class="pro-wrapper border p-5">
+    <div class="pro_info d-flex flex-column justify-content-center align-items-center">
+
+      <img class="rounded-circle" width="200" src="{{ user.profile.image.url }}" alt="profile-image">
+      <br>
+      <div class="info">
+        <h6><b class="text-muted">Username . </b><span class="text-primary">@{{user.username}}</span></h6>
+        <h6 class="text-muted"><b>Email . </b><span>{{user.email}}</span></h6>
+        <h6 class="text-muted"><b>Joined . </b><span>{{user.profile.join_date|date:"F j, Y"}}</span></h6>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <h4><b>Change Profile</b></h4>
+    <br>
+
+    {% include 'shamsla/layout/flash_messages.html' %}
+    {% include 'shamsla/layout/errors_boil.html' with errors=errors.user_errors  %}
+    {% include 'shamsla/layout/errors_boil.html' with errors=errors.profile_errors  %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+      {% include "shamsla/layout/user_boil.html" with label="Username" for_id="id_username" input=user_form.username %}
+
+      {% include "shamsla/layout/user_boil.html" with label="Email" for_id="id_email" input=user_form.email %}
+
+      {% include "shamsla/layout/user_boil.html" with label="Image" for_id="id_image" input=profile_form.image type="file" %}
+
+      <br>
+      <br>
+      <button type="submit" class="btn btn-primary">Change Profile</button>
+
+    </form>
+  </div>
+</div>
+<br><br>
+
+{% block add_script %}
+<script>
+  $('.custom-file-input').on('change', function () {
+    let fileName = $(this).val().split('\\').pop();
+    console.log(fileName)
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+  });
+</script>
+{% endblock %}
+
+
+{% endblock %}

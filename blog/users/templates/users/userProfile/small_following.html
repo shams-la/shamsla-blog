@@ -1,0 +1,18 @@
+{% load formsfilter%}
+
+{% if user == pro_user %}
+<a class="btn btn-primary btn-sm mt-1" href="{% url 'profile-change' %}">
+    <i class="fas fa-cog mr-2"></i>Profile Settings
+</a>
+{% endif %}
+
+{% if user.is_authenticated and user != pro_user %}
+{% if user|check_following:pro_user %}
+<button class="following border-0 btn btn-dark btn-sm mt-1" data-uid="{{pro_user.id}}"
+    data-type="unfollow">Unfollow</button>
+{%else%}
+<button class="following border-0 btn btn-primary btn-sm mt-1" data-uid="{{pro_user.id}}"
+    data-type="follow">+Follow</button>
+{% endif %}
+
+{% endif %}

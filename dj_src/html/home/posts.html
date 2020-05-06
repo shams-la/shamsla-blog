@@ -1,0 +1,64 @@
+{% load formsfilter %}
+
+<div class="home-wrapper mt-4 ">
+
+    {% for post in posts %}
+
+    <div class="media border p-3 mb-4 rounded my-media">
+
+        <a class="d-none d-lg-block" href="{% url 'profile' post.author.username %}"><img width="60" height="60"
+                src="{{post.author.profile.image.url}}" class="rounded-circle align-self-start mr-3" alt="..."></a>
+
+        <div class="media-body">
+            <div class="d-flex align-items-center">
+                <a class="d-sm-block d-lg-none" href="{% url 'profile' post.author.username %}">
+                    <img width="35" height="35" src="{{post.author.profile.image.url}}"
+                        class="rounded-circle align-self-start mr-3" alt="...">
+                </a>
+
+                <p class="my-uname">
+                    <a href="{% url 'profile' post.author.username %}">@{{post.author}}
+                    </a>
+                    <span class="text-muted">{{post.date_posted|date:"F j, Y" }}
+                    </span>
+                    {% if user != post.author and user.is_authenticated %}
+                    <span>
+                        <span>
+                            <i class="text-muted fas fa-circle sm-dot"></i>
+                        </span>
+                        {% if user|check_following:post.author %}
+                        <button class="following btn btn-link btn-sm p-0" data-uid="{{post.author.id}}"
+                            data-type="unfollow">Unfollow</button>
+                        {% else %}
+                        <button class="following btn btn-link btn-sm p-0" data-uid="{{post.author.id}}"
+                            data-type="follow">Follow</button>
+                        {% endif %}
+
+                    </span>
+                    {% endif %}
+                </p>
+
+                {% if post.author == user %}
+                <a class="edit-con ml-auto" href="{% url 'post-update' post.id%}">
+                    <i class="fas fa-pencil-alt text-dark"></i>
+                </a>
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <h4 class="mt-0">
+                <a class="post-title text-dark" href="{% url 'post-detail' post.id %}">
+                    {{post.title|splitText:75}}
+                </a>
+            </h4>
+
+            <p class="post-cont">{{post.content|splitText:250}}</p>
+
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>

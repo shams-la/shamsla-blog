@@ -1,0 +1,30 @@
+{% extends 'shamsla/layout/index.html' %}
+{% load static %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
+<link rel="stylesheet" href="{% static 'shamsla/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'shamsla/css/search_sidebar.css' %}">
+
+{% endblock styles %}
+
+{% block title %} ShAms LA {% endblock title %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-start">
+
+  {% include 'shamsla/home/posts.html' %}
+  {% include 'shamsla/layout/pagination_boil.html' %}
+  {% include 'shamsla/home/sidebar.html' %}
+</div>
+
+{% endblock content %}
+
+{% block add_script %}
+<script src="{% static 'shamsla/js/follow.js' %}"></script>
+<script>
+  $("button.following").on("click", (e) => targetFollowing(e, `{% include 'shamsla/layout/sm_loader.html' %}`));
+</script>
+{% endblock add_script %}

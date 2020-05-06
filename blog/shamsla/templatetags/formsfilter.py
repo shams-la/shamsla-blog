@@ -15,3 +15,18 @@ def add_attr(value, args):
 @register.filter(name="split_by_n")
 def split_by_n(value, split_by='\n'):
     return value.split(split_by)
+
+
+@register.filter(name="check_post_like")
+def check_post_like(value, pk):
+    return value.likes.filter(pk=pk).exists()
+
+@register.filter(name="check_following")
+def check_following(value, user):
+    return value.profile.followings.filter(user=user).exists()
+    
+@register.filter(name="splitText")
+def splitText(value, arg):
+    if len(value) > arg:
+        return value[:arg] + " ..."
+    return value

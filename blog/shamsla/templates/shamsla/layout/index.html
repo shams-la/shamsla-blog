@@ -2,120 +2,38 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'shamsla/css/bt.78f2f00a.css' %}">
+  <link rel="stylesheet" href="{% static 'shamsla/css/commons.257e72ee.css' %}">
+  <script src="{% static 'shamsla/js/fa.9c9b18d3.js' %}"></script>
 
-    <link rel="icon" href="{% static 'shamsla/images/fav.PNG' %}" type="image/gif">
+  <link rel="icon" href="{% static 'shamsla/images/fav.PNG' %}" type="image/gif">
 
-    <script src="https://kit.fontawesome.com/4b12aae445.js"></script>
+  {% block styles %}{% endblock %}
 
-    {% block styles %}{% endblock %}
-
-    <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
 </head>
-
-
-<style>
-
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
-}
-
-main.container {
-    margin-top: 60px;
-}
-
-.nav-wrap {
-  background: rgb(233, 233, 233);
-}
-
-
-header nav {
-    background-color: rgb(233, 233, 233) !important;
-}
-
-p {
-    line-height: 1.6;
-}
-
-
-
-</style>
 
 <body>
 
   {% include 'shamsla/layout/modal.html'%}
+  {% include 'shamsla/layout/nav.html'%}
 
-    <header>
-        <div class="fixed-top nav-wrap">
-        <nav class="container navbar navbar-expand-lg navbar-light pr-4 pl-4 nav-fill w-100">
-            <a class="navbar-brand font-weight-bold mr-4" href="/"><img width="30" src="{% static 'shamsla/images/weblogo.PNG' %}" alt="shams la logo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="/"> Home</a>
-                </li>
-                
-                {% if user.is_authenticated %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user-posts' user.username %}"> Posts</a>
-                  </li>
-                {% endif %}
 
-              </ul>
-
-              <ul class="navbar-nav ml-auto">
-                
-
-                {% if user.is_authenticated %}
-
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'post-create' %}">New Post</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'profile' user.username %}">Profile</a>
-                </li>
-                <li class="nav-item">
-                  <a style="cursor: pointer;" class="nav-link" data-toggle="modal" data-target="#exampleModal" >Logout</a>
-                </li>
-
-                {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'post-create' %}">New Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
-
-                {% endif %}
-                
-              </ul>
-            </div>
-          </nav>
-        </div>
-    </header>
-    <main class="container">
-      {% block content %}{% endblock %}
-    </main>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
 </body>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{% static 'shamsla/js/jq.65dcc2f4.js' %}"></script>
+<script src="{% static 'shamsla/js/pp.b7253430.js' %}"></script>
+<script src="{% static 'shamsla/js/bt.7a30eb7f.js' %}"></script>
 
-{% block add_script %}{% endblock %}
+<script src="{% static 'shamsla/js/main.242c5441.js' %}"></script>
+{% block add_script %}{% endblock add_script%}
 
 </html>

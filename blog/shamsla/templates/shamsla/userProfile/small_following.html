@@ -1,0 +1,23 @@
+{% if user == pro_user %}
+<a class="btn btn-primary btn-sm" href="{% url 'profile-change' %}">
+    <i class="fas fa-cog"></i>Profile Settings
+</a>
+{% endif %}
+
+{% if user.is_authenticated and user != pro_user %}
+{% if follow_or_not %}
+<form action="/users/unfollow/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="uid" value="{{pro_user.id}}">
+    <button type="submit" class="btn btn-dark btn-sm"><b>Unfollow</b></button>
+</form>
+
+{% else %}
+<form action="/users/follow/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="uid" value="{{pro_user.id}}">
+    <button type="submit" class="btn btn-primary btn-sm"><b>+
+            Follow</b></button>
+</form>
+{% endif %}
+{% endif %}

@@ -1,0 +1,59 @@
+{% load formsfilter %}
+
+<div class="bt-stat d-flex align-items-center justify-content-between">
+    <div class="info-stat d-flex align-items-center justify-content-between">
+
+        <p class="text-center m-0 text-dark bt-stat-text">
+            <span class="d-none d-lg-inline">Posts</span>
+            <span class="d-lg-none">
+                <a href="{% url 'user-posts' pro_user.username %}" class="text-dark sm-link">
+                    Posts
+                </a>
+            </span>
+            <br>
+            <span class="text-muted stat-val">{{total_posts}}</span>
+        </p>
+        <p class="text-center m-0 text-dark bt-stat-text">
+            <span class="d-none d-lg-inline">Following</span>
+            <span class="d-lg-none">
+                <a href="{% url 'user-posts' pro_user.username %}" class="text-dark sm-link">
+                    Following
+                </a>
+            </span>
+            <br>
+            <span class="text-muted stat-val">{{followings}}</span>
+        </p>
+        <p class="text-center m-0 text-dark bt-stat-text">
+            <span class="d-none d-lg-inline">Followers</span>
+            <span class="d-lg-none">
+                <a href="{% url 'user-posts' pro_user.username %}" class="text-dark sm-link">
+                    Followers
+                </a>
+            </span>
+            <br>
+            <span class="text-muted stat-val">{{followers}}</span>
+        </p>
+        <p class="text-center m-0 text-dark bt-stat-text">Likes<br><span class="text-muted stat-val">100.8K</span></p>
+        <p class="text-center m-0 text-dark bt-stat-text">Comments<br><span class="text-muted stat-val">54K</span></p>
+
+    </div>
+    {% if user == pro_user %}
+    <div class="action">
+        <a style="font-size: 16px;" class="btn btn-primary" href="{% url 'profile-change' %}"><i class="fas fa-cog"></i>
+            Edit Profile</a>
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated and user != pro_user %}
+    <div class="action">
+        {% if user|check_following:pro_user %}
+        <button style="font-size: 16px;" type="submit" class="following border-0 btn btn-dark"
+            data-uid="{{pro_user.id}}" data-type="unfollow">Unfollow</button>
+        {% else %}
+        <button style="font-size: 16px;" type="submit" class="following border-0 btn btn-primary"
+            data-uid="{{pro_user.id}}" data-type="follow">+Follow</button>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>

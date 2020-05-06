@@ -1,0 +1,27 @@
+.sidebar {
+    width: 32%;
+    background-color: #ffffff;
+}
+
+
+@media (max-width: 991px) {
+    .sidebar {
+        width: 35%;
+    }
+
+    .side-btn {
+        font-size: 12px;
+    }
+
+    .sidebar input {
+        font-size: 0.8rem;
+    }
+
+    .sidebar h4 {
+        font-size: 1.2rem;
+    }
+
+    .sidebar button {
+        font-size: 11px;
+    }
+}

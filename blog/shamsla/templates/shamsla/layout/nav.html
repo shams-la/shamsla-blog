@@ -1,0 +1,83 @@
+{% load static %}
+
+<header>
+    <div class="fixed-top nav-wrap">
+        <nav class="container navbar navbar-expand-lg navbar-dark pr-4 pl-4 nav-fill w-100">
+            <a class="navbar-brand font-weight-bold mr-5" href="/"><img src="{% static 'shamsla/images/mainlogo.PNG' %}"
+                    alt="shams la logo"></a>
+            <form method="POST" class="d-flex justify-content-center form-group w-50 m-0">
+                <input type="text" class=" form-control" placeholder="Search ...">
+            </form>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span>
+                    {% include 'shamsla/layout/ham.html' %}
+                </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                <ul class="navbar-nav ml-auto d-flex align-items-center">
+
+                    <li class="nav-item mr-1">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item mr-1">
+                        <a class="nav-link" href="{% url 'post-create' %}">New Post</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="{% url 'profile' user.username%}">Profile</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="{% url 'user-posts' user.username%}">Posts</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a style="cursor: pointer;" class="nav-link" data-toggle="modal"
+                            data-target="#exampleModal">Sign Out</a>
+                    </li>
+
+
+                    <li class="nav-item d-none d-lg-block">
+
+                        <div class="dropdown nav-link">
+                            <a class="main-drop d-flex align-items-center dropdown-toggle"
+                                href="{% url 'profile' user.username %}" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img class="rounded profile-img" width="10" src="{{user.profile.image.url}}" alt="user">
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'profile' user.username %}">Your Profile</a>
+                                <a class="dropdown-item" href="{% url 'user-posts' user.username %}">Your Posts</a>
+                                <a class="dropdown-item" href="{% url 'user-posts' user.username %}">Notifications</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'profile-change' %}">Edit Profile</a>
+                                <a style="cursor: pointer;" class="dropdown-item" data-toggle="modal"
+                                    data-target="#exampleModal">Sign Out</a>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light nav-link" href="{% url 'register' %}">Sign Up</a>
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

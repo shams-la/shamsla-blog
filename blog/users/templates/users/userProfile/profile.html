@@ -1,0 +1,78 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'users/css/profile.10a035b7.css' %}">
+<link rel="stylesheet" href="{% static 'shamsla/css/media.db65f61a.css' %}">
+
+{% endblock styles%}
+
+{% block title %} {{pro_user|title}} Profile {% endblock title%}
+
+{% block content %}
+
+
+<div class="wrapper border">
+        <div class="inner d-flex align-items-center">
+
+                <img class="rounded-circle mr-4" width="170" height="170" src="{{ pro_user.profile.image.url }}"
+                        alt="profile-image">
+
+                <div class="info">
+                        <h6>
+                                <b class="text-muted">Username . </b>
+                                <span class="text-primary">@{{pro_user.username}}
+                                </span>
+                        </h6>
+                        <h6 class="text-muted"><b>Email . </b>
+                                <span>{{pro_user.email}}</span>
+                        </h6>
+
+                        <h6 class="text-muted">
+                                <b>Joined .
+                                </b>
+                                <span>{{pro_user.profile.join_date|date:"F j, Y"}}</span>
+                        </h6>
+                        <div class="d-lg-none">
+                                {% include 'users/userProfile/small_following.html' %}
+                        </div>
+
+                </div>
+        </div>
+
+        <div class="stats border rounded d-none d-lg-block">
+
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-secondary d-block mt-3 btn-sm">
+                        Followings
+                </a>
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-secondary d-block mt-3 btn-sm">
+                        Followers
+                </a>
+                <a href="{% url 'user-posts' pro_user.username %}" class="btn btn-secondary d-block mt-3 mb-3 btn-sm">
+                        See Posts
+                </a>
+        </div>
+
+
+
+
+        {% include 'users/userProfile/stats.html' %}
+</div>
+
+{% include 'users/userProfile/u_posts.html' %}
+
+{% endblock content%}
+
+{% block add_script %}
+<script src="{% static 'shamsla/js/follow.a08bbdec.js' %}"></script>
+<script>
+        $('button.following').on('click', (e) => targetFollowing(e, `{% include 'shamsla/layout/sm_loader.html' %}`,
+                style_follow = [
+                        ['background-color', '#007bff']
+                ], style_unfollow = [
+                        ['background-color', '#343a40']
+                ], plus = true))
+</script>
+{% endblock add_script %}
