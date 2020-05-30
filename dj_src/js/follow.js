@@ -1,6 +1,6 @@
 // Do not remove this comment [!required]
 
-async function targetFollowing(e, loader, style_follow = [], style_unfollow = [], plus = false) {
+async function targetFollowing(e, style_follow = [], style_unfollow = [], plus = false) {
   // * adding follow and un-follow functionality
   // * style_[follow,unfollow] for applying custom styles to button
   // * plus=true to add plus(+) before follow text like => [ <>+Follow</> ]
@@ -8,7 +8,6 @@ async function targetFollowing(e, loader, style_follow = [], style_unfollow = []
   const btn = $(e.target);
   const btn_text = btn.attr("data-type");
   plus = plus ? '+' : ''; // * checking for plus=true to add [+]Follow
-
   // * disabling btn to prevent double click
   disableBtn(btn, true);
 
@@ -18,7 +17,7 @@ async function targetFollowing(e, loader, style_follow = [], style_unfollow = []
   };
 
   // * Removing the text [follow/unfollow] and adding the loader
-  removeAdd(btn, loader);
+  removeAdd(btn, 'spin');
 
   const response = await postRequest("/users/following/", data);
 
@@ -45,4 +44,6 @@ async function targetFollowing(e, loader, style_follow = [], style_unfollow = []
 
   // * enabling button again after completion
   disableBtn(btn, false);
+
+  return btn_text;
 }

@@ -5,15 +5,15 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/media.css' %}">
 
-<link rel="stylesheet" href="{% static 'shamsla/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/home.css' %}">
 
-<link rel="stylesheet" href="{% static 'shamsla/css/search_sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/search_sidebar.css' %}">
 
-{% endblock %}
+{% endblock styles%}
 
-{% block title %} Posts | {{posts.0.author.username|title}} {% endblock %}
+{% block title %} Posts | {{posts.0.author.username|title}} {% endblock title%}
 
 {% block content %}
 
@@ -36,4 +36,4 @@
 
 
 
-{% endblock %}
+{% endblock content%}

@@ -4,9 +4,11 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "cd blog && python manage.py runserver",
-    "mkg": "cd blog && python manage.py makemigrations",
-    "mg": "cd blog && python manage.py migrate"
+    "start": "cd blog && C:\\Users\\shams\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe manage.py runserver",
+    "mkg": "cd blog && C:\\Users\\shams\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe manage.py makemigrations",
+    "mg": "cd blog && C:\\Users\\shams\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe manage.py migrate",
+    "shell": "cd blog && C:\\Users\\shams\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe manage.py shell",
+    "super": "cd blog && C:\\Users\\shams\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe manage.py createsuperuser"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +16,13 @@
   "dependencies": {
     "browser-sync": "^2.26.7",
     "child_process": "^1.0.2",
+    "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-change": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-filter": "^6.0.0",
     "gulp-hash": "^4.2.2",
-    "gulp-tap": "^2.0.0"
+    "gulp-tap": "^2.0.0",
+    "gulp-terser": "^1.2.0"
   }
 }

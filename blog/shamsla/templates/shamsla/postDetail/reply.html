@@ -1,0 +1,57 @@
+{% load static %}
+{% load formsfilter %}
+
+{% if comment|checkReply %}
+{% with comment|getReplies as replies %}
+{% for reply in replies %}
+<button class="btn btn-link flex view-more"><i class="fas fa-sort-down"></i>View {{replies|length}}
+    replies</button>
+<div class="replies">
+    <div class="comment">
+        <img src="{{reply.user.profile.image.url}}" alt="commenter" class="c-comment-img">
+        <div class="comment-text-side">
+            <p class="commenter">{{reply.user.username}}<span class="comment-time text-muted">20 Mins ago</span>
+            </p>
+            <p class="comment-text">{{reply.body}}</p>
+            <div class="comment-actions flex">
+                <a href="#">
+                    <object data="{% static 'shamsla/images/like.svg'%}" type="image/svg+xml"></object>
+                </a>
+                <a href="#">
+                    <object data="{% static 'shamsla/images/dislike.svg'%}" type="image/svg+xml"></object>
+                </a>
+                <a href="#">
+                    <object data="{% static 'shamsla/images/reply.svg'%}" type="image/svg+xml"></object>
+                </a>
+            </div>
+        </div>
+        <div>
+        </div>
+        {% endfor %}
+        {% endwith %}
+        {% endif %}
+
+
+        {% for comment in comments %}
+        <div class="comment area-wrap">
+            <img src="{{comment.user.profile.image.url}}" alt="comment-user-img" class="t-comment-img">
+            <div class="comment-text-side">
+                <p class="commenter">{{comment.user.username}}<span class="comment-time text-muted">20 Mins ago</span>
+                </p>
+                <p class="comment-text">{{comment.body}}</p>
+                <div class="comment-actions flex">
+                    <a href="#" class="comment-action">
+                        <object data="{% static 'shamsla/images/like.svg'%}" type="image/svg+xml"></object>
+                        {% comment %} <span class="action-value text-muted"></span> {% endcomment %}
+                    </a>
+                    <a href="#">
+                        <object data="{% static 'shamsla/images/dislike.svg'%}" type="image/svg+xml"></object>
+                    </a>
+                    <a href="#">
+                        <object data="{% static 'shamsla/images/reply.svg'%}" type="image/svg+xml"></object>
+                    </a>
+                </div>
+            </div>
+            {% include 'shamsla/postDetail/reply.html' %}
+        </div>
+        {% endfor %}

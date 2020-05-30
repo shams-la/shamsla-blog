@@ -4,8 +4,8 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
-<link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/media.css' %}">
 
 {% endblock styles%}
 
@@ -66,13 +66,23 @@
 {% endblock content%}
 
 {% block add_script %}
-<script src="{% static 'shamsla/js/follow.js' %}"></script>
+<script src="{% static 'rawstatic/js/follow.js' %}"></script>
 <script>
-        $('button.following').on('click', (e) => targetFollowing(e, `{% include 'shamsla/layout/sm_loader.html' %}`,
-                style_follow = [
+        $('button.following').on('click', async (e) => {
+                let follow_type = await targetFollowing(e, style_follow = [
                         ['background-color', '#007bff']
                 ], style_unfollow = [
                         ['background-color', '#343a40']
-                ], plus = true))
+                ], plus = true);
+
+                //* to change the counting of followers stat.
+                let follow_span = $('span.follower');
+                let span_num = Number(follow_span.text());
+
+                if (follow_type == 'follow') follow_span.text(span_num + 1)
+
+                else if (follow_type = "unfollow") follow_span.text(span_num - 1)
+        })
 </script>
+
 {% endblock add_script %}

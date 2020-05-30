@@ -4,11 +4,11 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{% static 'users/css/change_pro.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/change_pro.css' %}">
 
 {% endblock styles %}
 
-{% block title %} {{user.username|title}} | Profile Settings {% endblock %}
+{% block title %} {{user.username|title}} | Profile Settings {% endblock title%}
 
 {% block content %}
 
@@ -54,15 +54,14 @@
 </div>
 <br><br>
 
+
+{% endblock content%}
+
 {% block add_script %}
 <script>
   $('.custom-file-input').on('change', function () {
     let fileName = $(this).val().split('\\').pop();
-    console.log(fileName)
     $(this).next('.custom-file-label').addClass("selected").html(fileName);
   });
 </script>
-{% endblock %}
-
-
-{% endblock %}
+{% endblock add_script%}

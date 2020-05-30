@@ -7,9 +7,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" href="{% static 'shamsla/css/bt.78f2f00a.css' %}">
-  <link rel="stylesheet" href="{% static 'shamsla/css/commons.257e72ee.css' %}">
-  <script src="{% static 'shamsla/js/fa.9c9b18d3.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'rawstatic/css/default/bt.78f2f00a.css' %}">
+  <link rel="stylesheet" href="{% static 'rawstatic/css/default/commons.ede87e1e.css' %}">
+  {% comment %} <script src="{% static 'temp/fa.js' %}"></script> {% endcomment %}
 
   <link rel="icon" href="{% static 'shamsla/images/fav.PNG' %}" type="image/gif">
 
@@ -29,11 +29,13 @@
   </main>
 </body>
 
-<script src="{% static 'shamsla/js/jq.65dcc2f4.js' %}"></script>
-<script src="{% static 'shamsla/js/pp.b7253430.js' %}"></script>
-<script src="{% static 'shamsla/js/bt.7a30eb7f.js' %}"></script>
-
-<script src="{% static 'shamsla/js/main.242c5441.js' %}"></script>
+<script src="{% static 'temp/jq.js' %}"></script>
+<script src="{% static 'temp/pp.js' %}"></script>
+<script src="{% static 'temp/bt.js' %}"></script>
+<script>
+  const g$spin_code = `{% include 'shamsla/layout/sm_loader.html' %}`;
+</script>
+<script src="{% static 'rawstatic/js/default/main.3231f3c1.js' %}"></script>
 {% block add_script %}{% endblock add_script%}
 
 </html>

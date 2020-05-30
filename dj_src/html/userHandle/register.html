@@ -4,11 +4,11 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{% static 'shamsla/css/form_outline.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/form_outline.css' %}">
 
-{% endblock %}
+{% endblock styles%}
 
-{% block title %} Register {% endblock %}
+{% block title %} Register {% endblock title%}
 
 {% block content %}
 {% if not user.is_authenticated %}
@@ -42,4 +42,4 @@
 Please Logout First .
 {% endif %}
 
-{% endblock %}
+{% endblock content%}

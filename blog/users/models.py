@@ -21,9 +21,30 @@ class Profile(models.Model):
         super().save()
 
         img = Image.open(self.image.path)
+        w, h = img.size
 
-        if img.height > 300 or img.width > 300:
-            img.thumbnail((300, 300))
+        # * squaring and resizing the image
+
+        if w > 300 or h > 300 or w != h:
+
+            if w != h:
+                points = None
+                if h < w:
+                    diff = w - h
+                    if diff == 1:
+                        points = (0, 0, h, h)
+                    else:
+                        d0ver2 = diff/2
+                        points = (d0ver2, 0, h + d0ver2, h)
+
+                else:
+                    points = (0, 0, w, w)
+
+                img = img.crop(points)
+
+            if w > 300 or h > 300:
+                img.thumbnail((300, 300))
+
             img.save(self.image.path)
 
 

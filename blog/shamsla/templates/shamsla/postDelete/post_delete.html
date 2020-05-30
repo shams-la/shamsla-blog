@@ -1,10 +1,15 @@
-{% extends 'shamsla/layout/index.html' %} {% load static %} {% block styles %}
+{% extends 'shamsla/layout/index.html' %}
+{% load static %}
 
-<link rel="stylesheet" href="{% static 'shamsla/css/post_delete.css' %}" />
+{% block styles %}
 
-{% endblock styles %} {% block title %}Delete | {{ post.title }}{% endblock %}
+<link rel="stylesheet" href="{% static 'rawstatic/css/post_delete.b7e88515.css' %}">
+
+{% endblock styles %}
+
+{% block title %}Delete | {{ post.title }}{% endblock %}
+
 {% block content %}
-
 <br />
 <div class="top-wrapper d-flex justify-content-center">
   <div class="del-wrapper border rounded p-4">
@@ -29,9 +34,7 @@
 
       <button type="submit" class="btn btn-danger mr-2">Yes, Delete!</button>
 
-      <a href="{{post.get_absolute_url}}" class="btn btn-outline-secondary"
-        >Cancel</a
-      >
+      <a href="{{post.get_absolute_url}}" class="btn btn-outline-secondary">Cancel</a>
       <br />
     </form>
   </div>

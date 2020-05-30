@@ -1,0 +1,19 @@
+{% load static %}
+{% load formsfilter %}
+<div id="comment-wrap" class="comment-wrap border p-4 rounded">
+    <div class="area-wrap">
+        <img src="{% if user.is_authenticated %}{{ user.profile.image.url }}{% else %}/media/default/default.png{% endif %}"
+            alt="{{user.username}}" id="commenter-img" class="user-img">
+        <textarea name="comment" id="comment-area" rows="1" class="comment-area main-area form-control"
+            placeholder="Write Your Comment"></textarea>
+        <div class="area-actions" id="comment-actions">
+            <button id="comment-ok" class="btn-sm btn btn-primary" disabled>Comment</button>
+            <button id="comment-cancel" class="btn-sm btn btn-light main_cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="comments" id="comments"></div>
+    <div id="comment-scroll" class="align-items-center justify-content-center mt-5">
+        {% include 'shamsla/layout/sm_loader.html' %}
+    </div>
+</div>

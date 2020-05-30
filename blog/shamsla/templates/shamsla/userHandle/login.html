@@ -1,0 +1,47 @@
+{% extends 'shamsla/layout/index.html' %}
+
+{% load static %}
+
+{% load formsfilter %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/form_outline.6bdd8283.css' %}">
+<link rel="stylesheet" href="hell.css">
+{% endblock styles %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+
+<div class="d-flex justify-content-center">
+
+    <div class="login-wrapper d-flex justify-content-center border">
+
+        <form class="post-form" method="POST">
+            {% csrf_token %}
+
+            {% include 'shamsla/layout/flash_messages.html' %}
+
+
+            <h3>Login</h3>
+            <br>
+            {% if form.non_field_errors %}
+            {% include 'shamsla/layout/errors_boil.html' with errors=form.non_field_errors tags=False %}
+            {% endif %}
+            <br>
+
+            {% include "shamsla/layout/user_boil.html" with label="Username" for_id="id_username" input=form.username %}
+            {% include "shamsla/layout/user_boil.html" with label="Password" for_id="id_password" input=form.password %}
+
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="{% url 'register' %}" class="btn btn-link">Wanna Create Account ?</a>
+        </form>
+    </div>
+</div>
+{% else %}
+Please Logout First .
+{% endif %}
+
+{% endblock content%}

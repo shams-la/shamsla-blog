@@ -43,8 +43,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
-    # 'htmlmin.middleware.HtmlMinifyMiddleware',
-    # 'htmlmin.middleware.MarkRequestMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,11 +126,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILS_DIRS = {
-    os.path.join(BASE_DIR, 'shamsla/static'),
-    os.path.join(BASE_DIR, 'users/static')
-}
-
+# --------------------------------------------------
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# -----------------------------------------------------
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    '/rawstatic/'
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -139,4 +141,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGOUT_REDIRECT_URL = 'blog-home'
-# HTML_MINIFY = True
+HTML_MINIFY = True

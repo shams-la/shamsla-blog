@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import UserRegistrationForm, UpdateProfileForm, UpdateUserForm
 from json import loads as loadJson
+from shamsla.custom_funcs import getLoadedJson
 
 
 def register(request):
@@ -101,9 +102,12 @@ def following(request):
 
     if request.method == 'POST':
         try:
-            data = loadJson(request.body)
-            user_id = int(data['uid'])
-            follow_type = data['type']  # * it could either follower/following
+            data, user_id, follow_type = getLoadedJson(
+                request.body, ['uid', int], ['type', lambda t:t])
+            # data = loadJson(request.body)
+            # user_id = int(data['uid'])
+            # # * it could be either follower/following
+            # follow_type = data['type']
             print(user_id, follow_type, data)
         except:
             return status_404()

@@ -3,10 +3,10 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'shamsla/css/form_outline.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/form_outline.css' %}">
+{% endblock styles%}
 
-{% block title %} Update | {{ post.title }} {% endblock %}
+{% block title %} Update | {{ post.title }} {% endblock title%}
 
 {% block content %}
 <div class="d-flex justify-content-center">
@@ -27,4 +27,4 @@
         </form>
     </div>
 </div>
-{% endblock %}
+{% endblock content%}

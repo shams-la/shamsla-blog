@@ -3,9 +3,9 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{% static 'shamsla/css/media.css' %}">
-<link rel="stylesheet" href="{% static 'shamsla/css/home.css' %}">
-<link rel="stylesheet" href="{% static 'shamsla/css/search_sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/media.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/home.css' %}">
+<link rel="stylesheet" href="{% static 'rawstatic/css/default/search_sidebar.css' %}">
 
 {% endblock styles %}
 
@@ -22,9 +22,12 @@
 
 {% endblock content %}
 
+
 {% block add_script %}
-<script src="{% static 'shamsla/js/follow.js' %}"></script>
+{% if user.is_authenticated %}
+<script src="{% static 'rawstatic/js/follow.js' %}"></script>
 <script>
-  $("button.following").on("click", (e) => targetFollowing(e, `{% include 'shamsla/layout/sm_loader.html' %}`));
+  $("button.following").on("click", targetFollowing);
 </script>
+{% endif %}
 {% endblock add_script %}

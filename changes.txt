@@ -1,68 +1,29 @@
-There are many changes like UI, Follower/Following, Like Post, Async etc.
-
 --- CHANGES ::
 
 
-- Working Tree
+- Gulpfile & Terser
 
-    Tree structure has been changed.
-
-    Specifically the ''html'' Structure has been divided into multiple folders and each folder contains different pages.
-
-    Pages has divided into parts like -> navbar-posts-sidebar || In a specific folder
+    Gulpfile has been Updated.
+    Now JS files can combined into file using 'concat' prop in conf.js.
+    Terser Minification has also been added.
 
 
-- UI Improved
+- Commen Section
 
-    UI has been changed and fully optimized for        different  Breakpoints [ max-width -> 767, 991, ^]
+    It is the main big change.
+    Fully Funtional (youtube inspired) Comment Section added in the pst_detail.html
 
-    Modified for Next More Features.
+    cm_logged.js will be loaded only if the use has logged in.
 
-    :: Changed ::
-        Navbar Layout and Colors has been changed.
+- One Static Dir
 
-        Likes Sidebar has been Added in PostDetail Page  and it's also sticky on Scroll.
-
-        Profile Layout has also been changed.
-
-        Loader/Spinner Added for Async[see:34].
-
-        All the Pages have Optimized for Breakpoints.
-
-        A confirmation Modal For Logout.
-
-        Pagiantion also has been added [10 posts at a time].
-
-        Other: And there are also some other changes in pages and layout like following system etc.
-
-- Async
-
-    Async functionality added for small REQUESTS -- e.g. -> Like a Post || Follow User.
-
-    Async reponses are JsonBased with status[200|404].
-
-    :: For ::
-        Like Request is Async.
-        Follow/Unfollow Request is Async.
+    All static files has been moved to the one dir.
+    and Gulpfile has been also changed according to it.
 
 - Models [DB]
 
-    Two New Models have been Created.
-
-    One For Following The User.
-    One For Un-Following The User.
-
-    A ManyToMany relationship Added for Likes functionality b/w [Post] & [User].
+    Comment Model Added for Comment Section.
 
 - Other
 
-    Gulpfile has been Updated so Now JS Files can be Added by {%include%} in dj-html.
-
-    Now A User can see his Follower/Following & Posts & Likes in Profile tab.
-
-    User can Like a Post.
-
-    Nav Logo has been replaced for dark background.
-    Hamburger Updated.
-
-    And Finnaly All CDN files has been saved Locally with names [fa, bt, jq, pp].js | [bt].css
+    Some bug fixes.
